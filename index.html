@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+By obooklage 28-11-2020
+-->
+<html>
+   <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <title>Zone de déplacement de 20km autorisée au 28/11/2020</title> -->
+	<title>Zone de déplacement de 10km autorisée au 28/11/2020</title>
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	 
+   </head>
+   
+   <body>
+	  <div id="map_id"></div>
+      <script>
+		  
+		var marker = null;
+		var circle = null;
+		var last_latln = null;
+		  
+		var icon_me = L.icon({
+			iconUrl: 'images/me.png',
+			iconSize: [42, 42]
+		});
+		  
+		function initializeMapAndLocator()
+		{
+	
+			var map = L.map('map_id'); /* .setView([-41.2858, 174.78682], 14) */
+			mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
+			L.tileLayer(
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; ' + mapLink + ' Programmé avec amour par ' + ' <a href="https://www.albertdemun.fr/" target="_blank">Albert de Mun - Nogent</a>',
+				}).addTo(map);
+/*
+			map.setZoom(18);
+				*/
+			
+			map.locate({setView: true, watch:true, timeout: 60000});
+		
+			function onLocationFound(e)
+			{
+			/* var radius = e.accuracy / 2; */
+			var radius = 10000; /* 10 km */
+							
+				if( !marker )
+				{
+					marker = L.marker(e.latlng, { title: "Me" , icon: icon_me}).bindTooltip("Zone de déplacement de " + radius/1000 + " km", { noHide: true }).addTo(map).openTooltip();
+					console.log("Marqueur créé");
+				}
+				else
+				{
+					if( last_latln != e.latlng )
+					{
+						marker.setLatLng(e.latlng);
+						console.log("Marqueur mis à jour");							
+					}
+					else
+					{
+						console.log("Marqueur à la même position");								
+					}
+				}
+
+				if(!circle)
+				{
+					circle = L.circle(e.latlng, radius, {color: "grey", opacity:1}).addTo(map);		
+					console.log("Cercle créé");					
+				}
+				else
+				{
+					if( last_latln != e.latlng )
+					{
+						circle.setLatLng(e.latlng);
+						console.log("Cercle mis à jour");				
+					}
+					else
+					{
+						console.log("Cercle à la même position");								
+					}
+					
+				}
+				
+				last_latln = e.latlng;
+				
+			}
+
+			map.on('locationfound', onLocationFound);
+			
+		}
+		  
+		initializeMapAndLocator();
+		  
+      </script>
+   </body>
+</html>
