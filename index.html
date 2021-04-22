@@ -50,7 +50,7 @@ Source : https://leafletjs.com/examples/mobile/example.html
 				iconUrl: 'images/me.png',
 				iconSize: [42, 42]
 			});
-
+/*
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 			maxZoom: 18,
 			attribution: '&copy; ' + mapLink + ' Programmé avec amour par ' + ' <a href="https://www.albertdemun.fr/" target="_blank">Albert de Mun - Nogent</a>',
@@ -58,6 +58,12 @@ Source : https://leafletjs.com/examples/mobile/example.html
 			tileSize: 512,
 			zoomOffset: -1
 		}).addTo(map);
+*/
+
+		L.tileLayer(
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; ' + mapLink + ' Programmé avec amour par ' + ' <a href="https://www.albertdemun.fr/" target="_blank">Albert de Mun - Nogent</a>',
+				}).addTo(map);
 
 		function onLocationFound(e) {
 			/* var radius = e.accuracy / 2; */
