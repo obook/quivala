@@ -9,8 +9,8 @@ By obooklage 28-11-2020
 	<!-- <title>Zone de déplacement de 20km autorisée au 28/11/2020</title> -->
 	<title>Zone de déplacement de 10km autorisée au 28/11/2020</title>
 	<link rel="stylesheet" href="index.css">
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="leaflet.css" />
+	<script src="leaflet.js"></script>
 	 
    </head>
    
@@ -18,9 +18,13 @@ By obooklage 28-11-2020
 	  <div id="map_id"></div>
       <script>
 	
-
 	var map = L.map('map_id').fitWorld();
 	var mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
+
+	var icon_me = L.icon({
+			iconUrl: 'images/me.png',
+			iconSize: [42, 42]
+		});
 
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -34,10 +38,10 @@ By obooklage 28-11-2020
 		/* var radius = e.accuracy / 2; */
 		var radius = 10000; /* 10 km */
 
-		L.marker(e.latlng).addTo(map)
+		L.marker(e.latlng,{title: "Me",icon: icon_me}).addTo(map)
 			.bindPopup("Zone de " + radius/1000 + " km").openPopup();
 
-		L.circle(e.latlng, radius, {color: "grey", opacity:1}).addTo(map);
+		L.circle(e.latlng, radius, {color: "green", opacity:1.0}).addTo(map);
 
 		map.setZoom(12);
 	}
