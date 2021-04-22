@@ -4,38 +4,13 @@ Author : obooklage 28-11-2020
 Source : https://leafletjs.com/examples/mobile/example.html
 -->
 <html>
-   <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- <title>Zone de déplacement de 20km autorisée au 28/11/2020</title> -->
 	<title>Zone de déplacement de 10km autorisée au 28/11/2020</title>
-	<meta name="format-detection" content="telephone=no">
-	<meta name="msapplication-tap-highlight" content="no">
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="vendor/index.css">
+	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="vendor/leaflet.css" />
 	<script src="vendor/leaflet.js"></script>
-	 
-	<style type="text/css">
-	#map_content
-	{
-		padding: 0px;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-
-	#map_canvas
-	{
-		width: 100%;
-		height: 100%;
-		padding: 0;
-		text-shadow: none;
-	}
-
-</style>
-
    </head>
    
    <body>
@@ -50,22 +25,14 @@ Source : https://leafletjs.com/examples/mobile/example.html
 				iconUrl: 'images/me.png',
 				iconSize: [42, 42]
 			});
-/*
-		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			attribution: '&copy; ' + mapLink + ' Programmé avec amour par ' + ' <a href="https://www.albertdemun.fr/" target="_blank">Albert de Mun - Nogent</a>',
-			id: 'mapbox/streets-v11',
-			tileSize: 512,
-			zoomOffset: -1
 		}).addTo(map);
-*/
-
-		L.tileLayer(
-				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; ' + mapLink + ' Programmé avec amour par ' + ' <a href="https://www.albertdemun.fr/" target="_blank">Albert de Mun - Nogent</a>',
-				}).addTo(map);
 
 		function onLocationFound(e) {
+			console.log("onLocationFound");
 			/* var radius = e.accuracy / 2; */
 			var radius = 10000; /* 10 km */
 
