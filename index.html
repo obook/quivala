@@ -33,19 +33,32 @@ Source : https://leafletjs.com/examples/mobile/example.html
 
 		function onLocationFound(e) {
 			console.log("onLocationFound");
-			/* var radius = e.accuracy / 2; */
-			var radius = 10000; /* 10 km */
+
+			/* Précision */
+			var radius_accuracy = e.accuracy / 2;
+
+			L.circle(e.latlng, radius_accuracy, {color: "grey", opacity:0.2}).addTo(map);
+
+			/* Zone de déplacement */
+			var radius_deplacement = 10000; /* 10 km */
 
 			L.marker(e.latlng,{title: "Me",icon: icon_me}).addTo(map)
-				.bindPopup("Zone de " + radius/1000 + " km").openPopup();
+				.bindPopup("Zone de " + radius_deplacement/1000 + " km").openPopup();
 
-			L.circle(e.latlng, radius, {color: "blue", opacity:1.0}).addTo(map);
+			// L.circle(e.latlng, radius_deplacement, {color: "blue", opacity:1.0}).addTo(map);
 
 			map.setZoom(12);
 		}
 
 		function onLocationError(e) {
-			alert(e.message);
+			if (location.protocol !== 'https:')
+			{
+    			location.replace(`https:${location.href.substring(location.protocol.length)}`);
+			}
+			else
+			{
+				alert(e.message);
+			}
 		}
 
 		map.on('locationfound', onLocationFound);
