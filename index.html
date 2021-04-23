@@ -53,9 +53,9 @@ Source : https://leafletjs.com/examples/mobile/example.html
 		}
 
 		function onLocationError(e) {
-			if (location.protocol !== 'https:')
+			if (location.protocol !== 'https:') /* Erreur de localisation et on est en http : on essaye en https */
 			{
-    			location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    			location.replace('https:${location.href.substring(location.protocol.length)}');
 			}
 			else
 			{
